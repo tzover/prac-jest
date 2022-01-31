@@ -1,5 +1,5 @@
 import React from 'react'
-import { act, cleanup, render, screen } from '@testing-library/react'
+import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import Home from '../../pages'
 
 /* 実施するテストケース
@@ -24,10 +24,43 @@ afterEach(() => {
 })
 
 describe('Unit', () => {
-  it('Rendering', () => {
+  it('Rendering h1 Component', () => {
     act(() => {
       render(<Home />)
     })
-    expect(screen.getByText('Welcome to Next.js!')).toBeInTheDocument()
+    expect(screen.getByText(/welcome to next.js/i)).toBeInTheDocument()
+  })
+  it('Rendering Link Component', () => {
+    act(() => {
+      render(<Home />)
+    })
+    expect(
+      screen.getByRole('link', { name: /this is a link/i }),
+    ).toBeInTheDocument()
+  })
+  it('Rendering Button Action', () => {
+    act(() => {
+      render(<Home />)
+    })
+    // find an element with a role of button and text of "change to blue"
+    const btn = screen.getByRole('button', { name: /change to red/i })
+
+    // detail of test
+    expect(btn).toHaveClass('bg-red-500')
+    expect(btn).toHaveStyle({ color: 'white' })
+
+    // click the button
+    fireEvent.click(btn)
+
+    // expect the background color to be red
+    expect(btn.textContent).toBe('Change to Blue')
+    expect(btn).toHaveClass('bg-blue-500')
+
+    // click the button
+    fireEvent.click(btn)
+
+    // expect the background color to be red
+    expect(btn.textContent).toBe('Change to Red')
+    expect(btn).toHaveClass('bg-red-500')
   })
 })

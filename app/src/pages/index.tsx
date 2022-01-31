@@ -1,9 +1,20 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
+import { useState } from 'react'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
+  const blue = 'bg-blue-500'
+  const red = 'bg-red-500'
+  const [buttonColor, setButtonColor] = useState(red)
+
+  const newbuttonColor = buttonColor === red ? 'Red' : 'Blue'
+  const newbuttonColorClass = buttonColor === red ? blue : red
+
+  const changeBtnColor = () => {
+    setButtonColor(newbuttonColorClass)
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -13,6 +24,15 @@ const Home: NextPage = () => {
       </Head>
 
       <h1>Welcome to Next.js!</h1>
+      <a href='#'>This is a Link</a>
+      <br />
+      <button
+        className={`${buttonColor} p-5`}
+        style={{ color: 'white' }}
+        onClick={() => changeBtnColor()}
+      >
+        Change to {newbuttonColor}
+      </button>
     </div>
   )
 }

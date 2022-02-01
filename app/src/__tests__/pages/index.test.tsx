@@ -88,4 +88,22 @@ describe('Unit', () => {
     fireEvent.click(checkbox)
     expect(btn).toBeEnabled()
   })
+  it('Clicked disabled button has gray background and reverts to blue', () => {
+    act(() => {
+      render(<Home />)
+    })
+    const btn = screen.getByRole('button', { name: /change to red/i })
+    const checkbox = screen.getByRole('checkbox')
+
+    // change button to blue
+    fireEvent.click(btn)
+
+    // disable button
+    fireEvent.click(checkbox)
+    expect(btn).toHaveClass('bg-gray-500')
+
+    // re-enable button
+    fireEvent.click(checkbox)
+    expect(btn).toHaveClass('bg-blue-500')
+  })
 })

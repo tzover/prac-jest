@@ -6,6 +6,7 @@ import styles from '../styles/Home.module.css'
 const Home: NextPage = () => {
   const blue = 'bg-blue-500'
   const red = 'bg-red-500'
+  const gray = 'bg-gray-500'
   const [buttonColor, setButtonColor] = useState(red)
   const [disabled, setDisabled] = useState(false)
 
@@ -28,7 +29,7 @@ const Home: NextPage = () => {
       <a href='#'>This is a Link</a>
       <br />
       <button
-        className={`${buttonColor} p-5`}
+        className={`${disabled ? gray : buttonColor} p-5`}
         style={{ color: 'white' }}
         onClick={() => changeBtnColor()}
         disabled={disabled}

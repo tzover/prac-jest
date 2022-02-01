@@ -63,4 +63,29 @@ describe('Unit', () => {
     expect(btn.textContent).toBe('Change to Red')
     expect(btn).toHaveClass('bg-red-500')
   })
+  it('initial conditions', () => {
+    act(() => {
+      render(<Home />)
+    })
+    // check that the button starts out enabled
+    const btn = screen.getByRole('button', { name: /change to red/i })
+    expect(btn).toBeEnabled()
+
+    // check that the checkbox starts out unchecked
+    const checkbox = screen.getByRole('checkbox')
+    expect(checkbox).not.toBeChecked()
+  })
+  it('Checkbox disables button on first click and enables on second click', () => {
+    act(() => {
+      render(<Home />)
+    })
+    const btn = screen.getByRole('button', { name: /change to red/i })
+    const checkbox = screen.getByRole('checkbox')
+
+    fireEvent.click(checkbox)
+    expect(btn).toBeDisabled()
+
+    fireEvent.click(checkbox)
+    expect(btn).toBeEnabled()
+  })
 })

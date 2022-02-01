@@ -7,6 +7,7 @@ const Home: NextPage = () => {
   const blue = 'bg-blue-500'
   const red = 'bg-red-500'
   const [buttonColor, setButtonColor] = useState(red)
+  const [disabled, setDisabled] = useState(false)
 
   const newbuttonColor = buttonColor === red ? 'Red' : 'Blue'
   const newbuttonColorClass = buttonColor === red ? blue : red
@@ -30,9 +31,22 @@ const Home: NextPage = () => {
         className={`${buttonColor} p-5`}
         style={{ color: 'white' }}
         onClick={() => changeBtnColor()}
+        disabled={disabled}
       >
         Change to {newbuttonColor}
       </button>
+      <div className='m-5'>
+        <input
+          type='checkbox'
+          id='disable-btn-checkbox'
+          defaultChecked={disabled}
+          aria-checked={disabled}
+          onChange={(e) => setDisabled(e.target.checked)}
+        />
+        <label className='px-2' htmlFor='disable-btn-checkbox'>
+          Disable button
+        </label>
+      </div>
     </div>
   )
 }
